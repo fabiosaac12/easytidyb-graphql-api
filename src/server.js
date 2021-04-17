@@ -2,25 +2,17 @@ require('dotenv').config();
 
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
-const mongoose = require('mongoose');
 const cors = require('cors');
 
 const schema = require('./schema');
-const { authenticateToken } = require('./helpers.js');
+const { authenticateToken, connectToMongoDB } = require('./helpers.js');
 
 const app = express();
 
 app.use(cors());
+app.use(authenticateToken);
 
-mongoose.connect(
-  'mongodb://127.0.0.1:27017/etb',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  },
-  () => console.log('db connected')
-
-)
+connectToMongoDB();
 
 app.use('/graphql', graphqlHTTP({ schema, graphiql: true }))
 

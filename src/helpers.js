@@ -17,7 +17,22 @@ const generateAccessToken = user => jwt.sign(
     { expiresIn: '15s' }
 );
 
+const connectToMongoDB = () => {
+  const mongoose = require('mongoose');
+
+  mongoose.connect(
+    'mongodb://127.0.0.1:27017/etb',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false
+    },
+    () => console.log('db connected')
+  )
+};
+
 module.exports = {
   generateAccessToken,
-  authenticateToken
+  authenticateToken,
+  connectToMongoDB
 };
