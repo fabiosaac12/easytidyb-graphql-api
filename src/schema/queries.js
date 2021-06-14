@@ -2,7 +2,7 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = require('graphql');
 const {
   UserType,
@@ -10,7 +10,7 @@ const {
   OrderType,
   ProductType,
   ClientType,
-  SaleType
+  SaleType,
 } = require('./types');
 const { User, Supplier, Order, Product, Client, Sale } = require('../models');
 
@@ -18,9 +18,9 @@ const UserQueryFields = {
   users: {
     type: new GraphQLList(UserType),
     resolve() {
-      return User.find({})
-    }
-  }
+      return User.find({});
+    },
+  },
 };
 
 const SupplierQueryFields = {
@@ -30,9 +30,9 @@ const SupplierQueryFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
-      return Supplier.find({ userId: args.userId});
-    }
-  }
+      return Supplier.find({ userId: args.userId });
+    },
+  },
 };
 
 const OrderQueryFields = {
@@ -42,9 +42,9 @@ const OrderQueryFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
-      return Order.find({ userId: args.userId});
-    }
-  }
+      return Order.find({ userId: args.userId });
+    },
+  },
 };
 
 const ProductQueryFields = {
@@ -54,9 +54,9 @@ const ProductQueryFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
-      return Product.find({ userId: args.userId});
-    }
-  }
+      return Product.find({ userId: args.userId });
+    },
+  },
 };
 
 const ClientQueryFields = {
@@ -66,9 +66,11 @@ const ClientQueryFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
-      return Client.find({ userId: args.userId})
-    }
-  }
+      console.log(args);
+
+      return Client.find({ userId: args.userId });
+    },
+  },
 };
 
 const SaleQueryFields = {
@@ -78,9 +80,9 @@ const SaleQueryFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
-      return Sale.find({ userId: args.userId})
-    }
-  }
+      return Sale.find({ userId: args.userId });
+    },
+  },
 };
 
 const RootQuery = new GraphQLObjectType({
@@ -91,8 +93,8 @@ const RootQuery = new GraphQLObjectType({
     ...OrderQueryFields,
     ...ProductQueryFields,
     ...ClientQueryFields,
-    ...SaleQueryFields
-  }
+    ...SaleQueryFields,
+  },
 });
 
 module.exports = RootQuery;

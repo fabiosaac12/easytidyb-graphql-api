@@ -9,7 +9,7 @@ const saleSchema = new Schema({
   profit: Number,
   discount: Number,
   type: String,
-  date: Number
+  date: Number,
 });
 
 module.exports = model('sales', saleSchema);

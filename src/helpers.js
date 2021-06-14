@@ -2,20 +2,18 @@ const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1];
-  if ( !token ) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, ( err, user ) => {
-    if ( err ) return res.sendStatus(403);
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
     req.user = user;
     next();
   });
-}
+};
 
-const generateAccessToken = user => jwt.sign(
-    user, 
-    process.env.ACCESS_TOKEN_SECRET, 
-    { expiresIn: '15s' }
-);
+const generateAccessToken = (user) =>
+  jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5s' });
 
 const connectToMongoDB = () => {
   const mongoose = require('mongoose');
@@ -25,14 +23,14 @@ const connectToMongoDB = () => {
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     },
-    () => console.log('db connected')
-  )
+    () => console.log('db connected'),
+  );
 };
 
 module.exports = {
   generateAccessToken,
   authenticateToken,
-  connectToMongoDB
+  connectToMongoDB,
 };

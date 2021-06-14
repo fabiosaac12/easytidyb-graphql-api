@@ -3,7 +3,7 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLID,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = require('graphql');
 const GraphQLLong = require('graphql-type-long');
 const {
@@ -12,7 +12,7 @@ const {
   OrderType,
   ProductType,
   ClientType,
-  SaleType
+  SaleType,
 } = require('./types');
 const { User, Supplier, Order, Product, Client, Sale } = require('../models');
 
@@ -21,38 +21,38 @@ const UserMutationFields = {
     type: UserType,
     args: {
       username: { type: new GraphQLNonNull(GraphQLString) },
-      password: { type: new GraphQLNonNull(GraphQLString) }
+      password: { type: new GraphQLNonNull(GraphQLString) },
     },
     resolve(_, args) {
       const newUser = new User(args);
 
       return newUser.save();
-    }
+    },
   },
   updateUser: {
     type: UserType,
     args: {
       _id: { type: new GraphQLNonNull(GraphQLID) },
       username: { type: new GraphQLNonNull(GraphQLString) },
-      password: { type: new GraphQLNonNull(GraphQLString) }
+      password: { type: new GraphQLNonNull(GraphQLString) },
     },
     resolve(_, args) {
       const updatedUser = User.findByIdAndUpdate(args._id, args);
 
       return updatedUser.exec();
-    }
+    },
   },
   deleteUser: {
     type: UserType,
     args: {
-      _id: { type: new GraphQLNonNull(GraphQLID) }
+      _id: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
       const deletedUser = User.findByIdAndRemove(args._id);
 
       return deletedUser.exec();
-    }
-  }
+    },
+  },
 };
 
 const SupplierMutationFields = {
@@ -62,13 +62,13 @@ const SupplierMutationFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
       name: { type: new GraphQLNonNull(GraphQLString) },
       location: { type: GraphQLString },
-      contact: { type: GraphQLString }
+      contact: { type: GraphQLString },
     },
     resolve(_, args) {
       const newSupplier = new Supplier(args);
 
       return newSupplier.save();
-    }
+    },
   },
   updateSupplier: {
     type: SupplierType,
@@ -76,26 +76,25 @@ const SupplierMutationFields = {
       _id: { type: new GraphQLNonNull(GraphQLID) },
       name: { type: new GraphQLNonNull(GraphQLString) },
       location: { type: GraphQLString },
-      contact: { type: GraphQLString }
+      contact: { type: GraphQLString },
     },
     resolve(_, args) {
       const updatedSupplier = Supplier.findByIdAndUpdate(args._id, args);
 
       return updatedSupplier.exec();
-    }
+    },
   },
   deleteSupplier: {
     type: SupplierType,
     args: {
-      _id: { type: new GraphQLNonNull(GraphQLID) }
+      _id: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
       const deletedSupplier = Supplier.findByIdAndRemove(args._id);
 
       return deletedSupplier.exec();
-    }
-  }
-
+    },
+  },
 };
 
 const OrderMutationFields = {
@@ -105,13 +104,13 @@ const OrderMutationFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
       supplierId: { type: new GraphQLNonNull(GraphQLID) },
       expectedObtained: { type: new GraphQLNonNull(GraphQLInt) },
-      date: { type: new GraphQLNonNull(GraphQLLong) }
+      date: { type: new GraphQLNonNull(GraphQLLong) },
     },
     resolve(_, args) {
       const newOrder = new Order(args);
 
       return newOrder.save();
-    }
+    },
   },
   updateOrder: {
     type: OrderType,
@@ -119,26 +118,25 @@ const OrderMutationFields = {
       _id: { type: new GraphQLNonNull(GraphQLID) },
       supplierId: { type: new GraphQLNonNull(GraphQLID) },
       expectedObtained: { type: new GraphQLNonNull(GraphQLInt) },
-      date: { type: new GraphQLNonNull(GraphQLLong) }
+      date: { type: new GraphQLNonNull(GraphQLLong) },
     },
     resolve(_, args) {
       const updatedOrder = Order.findByIdAndUpdate(args._id, args);
 
       return updatedOrder.exec();
-    }
+    },
   },
   deleteOrder: {
     type: OrderType,
     args: {
-      _id: { type: new GraphQLNonNull(GraphQLID) }
+      _id: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
       const deletedOrder = Order.findByIdAndRemove(args._id);
 
       return deletedOrder.exec();
-    }
-  }
-
+    },
+  },
 };
 
 const ProductMutationFields = {
@@ -153,13 +151,13 @@ const ProductMutationFields = {
       initialStock: { type: new GraphQLNonNull(GraphQLInt) },
       retailPrice: { type: new GraphQLNonNull(GraphQLInt) },
       wholesalePrice: { type: new GraphQLNonNull(GraphQLInt) },
-      purchasePrice: { type: new GraphQLNonNull(GraphQLInt) }
+      purchasePrice: { type: new GraphQLNonNull(GraphQLInt) },
     },
     resolve(_, args) {
       const newProduct = new Product(args);
 
       return newProduct.save();
-    }
+    },
   },
   updateProduct: {
     type: ProductType,
@@ -172,26 +170,25 @@ const ProductMutationFields = {
       initialStock: { type: new GraphQLNonNull(GraphQLInt) },
       retailPrice: { type: new GraphQLNonNull(GraphQLInt) },
       wholesalePrice: { type: new GraphQLNonNull(GraphQLInt) },
-      purchasePrice: { type: new GraphQLNonNull(GraphQLInt) }
+      purchasePrice: { type: new GraphQLNonNull(GraphQLInt) },
     },
     resolve(_, args) {
       const updatedProduct = Product.findByIdAndUpdate(args._id, args);
 
       return updatedProduct.exec();
-    }
+    },
   },
   deleteProduct: {
     type: ProductType,
     args: {
-      _id: { type: new GraphQLNonNull(GraphQLID) }
+      _id: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
       const deletedProduct = Product.findByIdAndRemove(args._id);
 
       return deletedProduct.exec();
-    }
-  }
-
+    },
+  },
 };
 
 const ClientMutationFields = {
@@ -201,13 +198,13 @@ const ClientMutationFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
       name: { type: new GraphQLNonNull(GraphQLString) },
       location: { type: GraphQLString },
-      contact: { type: GraphQLString }
+      contact: { type: GraphQLString },
     },
     resolve(_, args) {
       const newClient = new Client(args);
 
       return newClient.save();
-    }
+    },
   },
   updateClient: {
     type: ClientType,
@@ -215,26 +212,25 @@ const ClientMutationFields = {
       _id: { type: new GraphQLNonNull(GraphQLID) },
       name: { type: new GraphQLNonNull(GraphQLString) },
       location: { type: GraphQLString },
-      contact: { type: GraphQLString }
+      contact: { type: GraphQLString },
     },
     resolve(_, args) {
       const updatedClient = Client.findByIdAndUpdate(args._id, args);
 
       return updatedClient.exec();
-    }
+    },
   },
   deleteClient: {
     type: ClientType,
     args: {
-      _id: { type: new GraphQLNonNull(GraphQLID) }
+      _id: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
       const deletedClient = Client.findByIdAndRemove(args._id);
 
       return deletedClient.exec();
-    }
-  }
-
+    },
+  },
 };
 
 const SaleMutationFields = {
@@ -249,13 +245,13 @@ const SaleMutationFields = {
       profit: { type: new GraphQLNonNull(GraphQLInt) },
       discount: { type: new GraphQLNonNull(GraphQLInt) },
       type: { type: new GraphQLNonNull(GraphQLString) },
-      date: { type: new GraphQLNonNull(GraphQLLong) }
+      date: { type: new GraphQLNonNull(GraphQLLong) },
     },
     resolve(_, args) {
       const newSale = new Sale(args);
 
       return newSale.save();
-    }
+    },
   },
   updateSale: {
     type: SaleType,
@@ -268,26 +264,25 @@ const SaleMutationFields = {
       profit: { type: new GraphQLNonNull(GraphQLInt) },
       discount: { type: new GraphQLNonNull(GraphQLInt) },
       type: { type: new GraphQLNonNull(GraphQLString) },
-      date: { type: new GraphQLNonNull(GraphQLLong) }
+      date: { type: new GraphQLNonNull(GraphQLLong) },
     },
     resolve(_, args) {
       const updatedSale = Sale.findByIdAndUpdate(args._id, args);
 
       return updatedSale.exec();
-    }
+    },
   },
   deleteSale: {
     type: SaleType,
     args: {
-      _id: { type: new GraphQLNonNull(GraphQLID) }
+      _id: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
       const deletedSale = Sale.findByIdAndRemove(args._id);
 
       return deletedSale.exec();
-    }
-  }
-
+    },
+  },
 };
 
 const RootMutation = new GraphQLObjectType({
@@ -298,8 +293,8 @@ const RootMutation = new GraphQLObjectType({
     ...OrderMutationFields,
     ...ProductMutationFields,
     ...ClientMutationFields,
-    ...SaleMutationFields
-  }
+    ...SaleMutationFields,
+  },
 });
 
 module.exports = RootMutation;

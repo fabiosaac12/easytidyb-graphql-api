@@ -11,5 +11,5 @@ module.exports = {
   Order,
   Product,
   Client,
-  Sale
+  Sale,
 };

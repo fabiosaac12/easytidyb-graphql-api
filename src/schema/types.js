@@ -4,7 +4,7 @@ const {
   GraphQLInt,
   GraphQLID,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = require('graphql');
 const GraphQLLong = require('graphql-type-long');
 const { Supplier, Order, Product, Client, Sale } = require('../models');
@@ -14,8 +14,8 @@ const UserType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     username: { type: GraphQLString },
-    password: { type: GraphQLString }
-  })
+    password: { type: GraphQLString },
+  }),
 });
 
 const SupplierType = new GraphQLObjectType({
@@ -29,9 +29,9 @@ const SupplierType = new GraphQLObjectType({
       type: new GraphQLList(OrderType),
       resolve(parent) {
         return Order.find({ supplierId: parent._id });
-      }
-    }
-  })
+      },
+    },
+  }),
 });
 
 const OrderType = new GraphQLObjectType({
@@ -43,7 +43,7 @@ const OrderType = new GraphQLObjectType({
       type: SupplierType,
       resolve(parent) {
         return Supplier.findById(parent.supplierId);
-      }
+      },
     },
     expectedObtained: { type: GraphQLInt },
     date: { type: GraphQLLong },
@@ -51,9 +51,9 @@ const OrderType = new GraphQLObjectType({
       type: new GraphQLList(ProductType),
       resolve(parent) {
         return Product.find({ orderId: parent._id });
-      }
-    }
-  })
+      },
+    },
+  }),
 });
 
 const ProductType = new GraphQLObjectType({
@@ -65,7 +65,7 @@ const ProductType = new GraphQLObjectType({
       type: OrderType,
       resolve(parent) {
         return Order.findById(parent.orderId);
-      }
+      },
     },
     name: { type: GraphQLString },
     char1: { type: GraphQLString },
@@ -78,9 +78,9 @@ const ProductType = new GraphQLObjectType({
       type: new GraphQLList(SaleType),
       resolve(parent) {
         return Sale.find({ productId: parent._id });
-      }
-    }
-  })
+      },
+    },
+  }),
 });
 
 const ClientType = new GraphQLObjectType({
@@ -94,9 +94,9 @@ const ClientType = new GraphQLObjectType({
       type: new GraphQLList(SaleType),
       resolve(parent) {
         return Sale.find({ clientId: parent._id });
-      }
-    }
-  })
+      },
+    },
+  }),
 });
 
 const SaleType = new GraphQLObjectType({
@@ -108,22 +108,22 @@ const SaleType = new GraphQLObjectType({
       type: ProductType,
       resolve(parent) {
         return Product.findById(parent.productId);
-      }
+      },
     },
     clientId: { type: GraphQLID },
     client: {
       type: ClientType,
       resolve(parent) {
         return Client.findById(parent.clientId);
-      }
+      },
     },
     quantity: { type: GraphQLInt },
     obtained: { type: GraphQLInt },
     profit: { type: GraphQLInt },
     discount: { type: GraphQLInt },
     type: { type: GraphQLString },
-    date: { type: GraphQLLong }
-  })
+    date: { type: GraphQLLong },
+  }),
 });
 
 module.exports = {
@@ -132,5 +132,5 @@ module.exports = {
   OrderType,
   ProductType,
   ClientType,
-  SaleType
+  SaleType,
 };

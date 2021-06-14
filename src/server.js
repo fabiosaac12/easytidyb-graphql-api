@@ -14,6 +14,6 @@ app.use(authenticateToken);
 
 connectToMongoDB();
 
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true }))
+app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
-app.listen(4000, () => console.log('server in port 4000'))
+app.listen(4000, () => console.log('server in port 4000'));

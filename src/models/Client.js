@@ -4,7 +4,7 @@ const clientSchema = new Schema({
   userId: String,
   name: String,
   location: String,
-  contact: String
+  contact: String,
 });
 
 module.exports = model('clients', clientSchema);

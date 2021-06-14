@@ -9,7 +9,7 @@ const productSchema = new Schema({
   initialStock: Number,
   retailPrice: Number,
   wholesalePrice: Number,
-  purchasePrice: Number
+  purchasePrice: Number,
 });
 
 module.exports = model('products', productSchema);

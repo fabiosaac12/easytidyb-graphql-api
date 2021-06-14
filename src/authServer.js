@@ -26,33 +26,33 @@ app.post('/refreshToken', (req, res) => {
 
     res.json({ accessToken: newAccessToken });
   });
-})
+});
 
 app.post('/login', (req, res) => {
   const user = req.body;
 
-  User.find(user)
-    .then(([user]) => {
-      if (!user) return res.sendStatus(401);
+  User.find(user).exec((error, [user]) => {
+    if (error) return res.sendStates(500);
+    if (!user) return res.sendStatus(401);
 
-      const { username } = user;
-      const accessToken = generateAccessToken({ username });
-      const refreshToken = jwt.sign(
-        { username }, 
-        process.env.ACCESS_TOKEN_SECRET
-      );
+    const { username, _id } = user;
 
-      refreshTokens.push(refreshToken);
+    const accessToken = generateAccessToken({ username, _id });
+    const refreshToken = jwt.sign(
+      { username, _id },
+      process.env.ACCESS_TOKEN_SECRET,
+    );
 
-      res.json({ accessToken, refreshToken });
-    })
-    .catch(() => res.sendStatus(503));
-})
+    refreshTokens.push(refreshToken);
+
+    res.json({ _id, username, accessToken, refreshToken });
+  });
+});
 
 app.delete('/logout', (req, res) => {
   const refreshToken = req.body.refreshToken;
-  refreshTokens = refreshTokens.filter(t => t !== refreshToken);
+  refreshTokens = refreshTokens.filter((t) => t !== refreshToken);
   res.sendStatus(204);
-})
+});
 
-app.listen(4001, () => console.log('auth server in port 4001'))
+app.listen(4001, () => console.log('auth server in port 4001'));
