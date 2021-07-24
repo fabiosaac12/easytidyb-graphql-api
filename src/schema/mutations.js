@@ -4,6 +4,7 @@ const {
   GraphQLInt,
   GraphQLID,
   GraphQLNonNull,
+  GraphQLFloat,
 } = require('graphql');
 const GraphQLLong = require('graphql-type-long');
 const {
@@ -119,7 +120,7 @@ const OrderMutationFields = {
     args: {
       _id: { type: new GraphQLNonNull(GraphQLID) },
       supplierId: { type: new GraphQLNonNull(GraphQLID) },
-      expectedObtained: { type: new GraphQLNonNull(GraphQLInt) },
+      expectedObtained: { type: new GraphQLNonNull(GraphQLFloat) },
       date: { type: new GraphQLNonNull(GraphQLLong) },
     },
     resolve(_, args) {
@@ -151,9 +152,9 @@ const ProductMutationFields = {
       char1: { type: GraphQLString },
       char2: { type: GraphQLString },
       initialStock: { type: new GraphQLNonNull(GraphQLInt) },
-      retailPrice: { type: new GraphQLNonNull(GraphQLInt) },
-      wholesalePrice: { type: new GraphQLNonNull(GraphQLInt) },
-      purchasePrice: { type: new GraphQLNonNull(GraphQLInt) },
+      retailPrice: { type: new GraphQLNonNull(GraphQLFloat) },
+      wholesalePrice: { type: new GraphQLNonNull(GraphQLFloat) },
+      purchasePrice: { type: new GraphQLNonNull(GraphQLFloat) },
     },
     resolve(_, args) {
       const newProduct = new Product(args);
@@ -170,9 +171,9 @@ const ProductMutationFields = {
       char1: { type: GraphQLString },
       char2: { type: GraphQLString },
       initialStock: { type: new GraphQLNonNull(GraphQLInt) },
-      retailPrice: { type: new GraphQLNonNull(GraphQLInt) },
-      wholesalePrice: { type: new GraphQLNonNull(GraphQLInt) },
-      purchasePrice: { type: new GraphQLNonNull(GraphQLInt) },
+      retailPrice: { type: new GraphQLNonNull(GraphQLFloat) },
+      wholesalePrice: { type: new GraphQLNonNull(GraphQLFloat) },
+      purchasePrice: { type: new GraphQLNonNull(GraphQLFloat) },
     },
     resolve(_, args) {
       const updatedProduct = Product.findByIdAndUpdate(args._id, args);
@@ -243,9 +244,9 @@ const SaleMutationFields = {
       productId: { type: new GraphQLNonNull(GraphQLID) },
       clientId: { type: new GraphQLNonNull(GraphQLID) },
       quantity: { type: new GraphQLNonNull(GraphQLInt) },
-      obtained: { type: new GraphQLNonNull(GraphQLInt) },
-      profit: { type: new GraphQLNonNull(GraphQLInt) },
-      discount: { type: new GraphQLNonNull(GraphQLInt) },
+      obtained: { type: new GraphQLNonNull(GraphQLFloat) },
+      profit: { type: new GraphQLNonNull(GraphQLFloat) },
+      discount: { type: new GraphQLNonNull(GraphQLFloat) },
       type: { type: new GraphQLNonNull(GraphQLString) },
       date: { type: new GraphQLNonNull(GraphQLLong) },
     },
@@ -262,9 +263,9 @@ const SaleMutationFields = {
       productId: { type: new GraphQLNonNull(GraphQLID) },
       clientId: { type: new GraphQLNonNull(GraphQLID) },
       quantity: { type: new GraphQLNonNull(GraphQLInt) },
-      obtained: { type: new GraphQLNonNull(GraphQLInt) },
-      profit: { type: new GraphQLNonNull(GraphQLInt) },
-      discount: { type: new GraphQLNonNull(GraphQLInt) },
+      obtained: { type: new GraphQLNonNull(GraphQLFloat) },
+      profit: { type: new GraphQLNonNull(GraphQLFloat) },
+      discount: { type: new GraphQLNonNull(GraphQLFloat) },
       type: { type: new GraphQLNonNull(GraphQLString) },
       date: { type: new GraphQLNonNull(GraphQLLong) },
     },

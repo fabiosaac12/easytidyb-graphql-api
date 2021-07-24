@@ -2,6 +2,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
+  GraphQLFloat,
   GraphQLID,
   GraphQLList,
   GraphQLNonNull,
@@ -45,7 +46,7 @@ const OrderType = new GraphQLObjectType({
         return Supplier.findById(parent.supplierId);
       },
     },
-    expectedObtained: { type: GraphQLInt },
+    expectedObtained: { type: GraphQLFloat },
     date: { type: GraphQLLong },
     products: {
       type: new GraphQLList(ProductType),
@@ -71,9 +72,9 @@ const ProductType = new GraphQLObjectType({
     char1: { type: GraphQLString },
     char2: { type: GraphQLString },
     initialStock: { type: GraphQLInt },
-    retailPrice: { type: GraphQLInt },
-    wholesalePrice: { type: GraphQLInt },
-    purchasePrice: { type: GraphQLInt },
+    retailPrice: { type: GraphQLFloat },
+    wholesalePrice: { type: GraphQLFloat },
+    purchasePrice: { type: GraphQLFloat },
     sales: {
       type: new GraphQLList(SaleType),
       resolve(parent) {
@@ -118,9 +119,9 @@ const SaleType = new GraphQLObjectType({
       },
     },
     quantity: { type: GraphQLInt },
-    obtained: { type: GraphQLInt },
-    profit: { type: GraphQLInt },
-    discount: { type: GraphQLInt },
+    obtained: { type: GraphQLFloat },
+    profit: { type: GraphQLFloat },
+    discount: { type: GraphQLFloat },
     type: { type: GraphQLString },
     date: { type: GraphQLLong },
   }),
