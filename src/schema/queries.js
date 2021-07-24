@@ -66,8 +66,6 @@ const ClientQueryFields = {
       userId: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve(_, args) {
-      console.log(args);
-
       return Client.find({ userId: args.userId });
     },
   },

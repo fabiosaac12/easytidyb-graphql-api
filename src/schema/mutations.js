@@ -79,7 +79,9 @@ const SupplierMutationFields = {
       contact: { type: GraphQLString },
     },
     resolve(_, args) {
-      const updatedSupplier = Supplier.findByIdAndUpdate(args._id, args);
+      const updatedSupplier = Supplier.findByIdAndUpdate(args._id, args, {
+        new: true,
+      });
 
       return updatedSupplier.exec();
     },

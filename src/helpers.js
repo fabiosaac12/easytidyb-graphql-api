@@ -13,7 +13,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 const generateAccessToken = (user) =>
-  jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5s' });
+  jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' });
 
 const connectToMongoDB = () => {
   const mongoose = require('mongoose');
